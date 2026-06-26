@@ -96,6 +96,13 @@
     .ci-blue { background: #dbeafe; color: #1d4ed8; }
     .ci-teal { background: #ccfbf1; color: #0f766e; }
 
+    /* ─── Value creation table ─────────────────────────── */
+    .value-table { width:100%; border-collapse:collapse; }
+    .value-table td { padding:13px 16px; border-bottom:1px solid #f1f5f9; vertical-align:top; font-size:13.5px; line-height:1.65; color:#374151; }
+    .value-table td.vc-label { width:190px; font-weight:700; color:#011f90; border-right:3px solid #e8ecf9; font-size:13px; }
+    .value-table tr:last-child td { border-bottom:none; }
+    .value-table tr:nth-child(even) td { background:#f8fafc; }
+
     /* ─── Footer ────────────────────────────────────────── */
     .footer { margin-top: 72px; padding-top: 22px; border-top: 1px solid #e9edf2; display: flex; justify-content: space-between; align-items: center; }
     .footer-author { font-size: 12.5px; color: #a0aec0; }
@@ -128,9 +135,9 @@
      1. CORE INSIGHT
 ════════════════════════════════════════════════════════════ -->
 <h2>1. The Core Insight</h2>
-<p>Ripple's products cannot scale under the current architecture. The March 2026 Platform Vision describes serving Corporates, Banks, and Repo at institutional scale — that requires infrastructure, not a larger sales team.</p>
-<p>Three layers work at scale: product teams compose customer experiences from platform APIs; platform teams own the shared infrastructure; Ripple Core Operations — Product Ops, Risk Ops, Finance Ops (with Treasury), and Recon Ops — handles what the automated path cannot. Operations has a bounded scope when the platform beneath it actually works.</p>
-<p>Five product teams share the same foundational needs — compliant identity, real-time banking, financial primitives, blockchain access, reconciliation — with no shared infrastructure. Each team built its own version or left Ops to cover the gap. At current scale this barely works; at Platform Vision scale, it breaks. The fix: Ripple Core owns the infrastructure layer; Prime and Treasury build on top. Six platform teams — Trusted Identity, Money Engine, Banking Connections, Blockchain Platform, Tokenization Platform, and Exchange Platform — give every product team shared primitives to compose from.</p>
+<p>Ripple's bet is to own the infrastructure layer for digital assets — the layer that connects fiat, markets, and blockchain in a way no single competitor does today. That layer has to be built internally before it can be sold externally, and it can't be built coherently while every product team assembles its own version of the same foundations.</p>
+<p>Three layers make that work at scale. Solutions teams compose customer experiences from platform APIs. Platform teams own the shared infrastructure — built so that happy paths automate completely and edge cases surface clearly for operations. Ripple Core Operations — Product Ops, Risk Ops, Finance Ops (with Treasury), and Recon Ops — holds and resolves what the automated path cannot. As platform coverage grows, the scope of exceptions narrows.</p>
+<p>Five product teams share the same foundational needs — compliant identity, real-time banking, financial primitives, blockchain access, reconciliation — with no shared layer to meet them. Each team built its own version or left Ops to cover the gap. The March 2026 Platform Vision names the fix: Ripple Core owns the infrastructure layer; Prime and Treasury build on top. Six platform teams — Trusted Identity, Money Engine, Banking Connections, Blockchain Platform, Tokenization Platform, and Exchange Platform — give every product team shared primitives to compose from.</p>
 
 <div class="callout info">
   <div class="callout-accent"></div>
@@ -138,6 +145,28 @@
     <div class="callout-title">The fundamental thesis</div>
     <div class="callout-body">Product teams that compose from shared primitives ship faster, reach more markets, and onboard new customers without multiplying ops complexity. Each new corridor costs less than the last. Without the platform layer, growth compounds the problem instead.</div>
   </div>
+</div>
+
+<p style="font-size:13px;color:#6b7280;margin:20px 0 8px;">Four ways platform creates value for Ripple, roughly in order of when returns appear:</p>
+<div class="tbl-wrap">
+<table class="value-table">
+  <tr>
+    <td class="vc-label">Product cohesion</td>
+    <td>Every product runs on the same identity layer and settles through the same infrastructure. Customers experience One Ripple — consistent regardless of which product they're in. The clearest near-term reason to make the bet.</td>
+  </tr>
+  <tr>
+    <td class="vc-label">Engineering efficiency</td>
+    <td>Multiple teams independently built things that claim to be a ledger. As shared primitives get adopted, engineering time shifts from rebuilding foundations to differentiated product work.</td>
+  </tr>
+  <tr>
+    <td class="vc-label">A platform we can sell</td>
+    <td>Sophisticated customers integrate directly with the platform, at the edges of what packaged solutions handle. We're at the start of that journey — but it's part of the thesis.</td>
+  </tr>
+  <tr>
+    <td class="vc-label">A bridge to the XRPL</td>
+    <td>A cohesive platform becomes the natural place to layer in XRPL capabilities — routing transactions on-chain, decentralized identities, connecting product work with what's being built on the ledger. Only Ripple can pursue this.</td>
+  </tr>
+</table>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════
@@ -321,7 +350,7 @@
      3. PROPOSED PLATFORM STRUCTURE
 ════════════════════════════════════════════════════════════ -->
 <h2>3. Proposed Platform Structure</h2>
-<p>Four layers. Product teams call platform APIs to build customer capabilities; they don't own the underlying infrastructure. Platform teams own shared primitives. Ripple Core Operations, at the base, handles what isn't yet automated — that scope shrinks as platform coverage grows.</p>
+<p>Four layers. Solutions teams compose customer capabilities from platform APIs — they don't own the underlying infrastructure. Platform teams own shared primitives, built so that happy paths automate completely and edge cases surface for operations. Ripple Core Operations, at the base, holds and resolves what the automated path cannot; that scope shrinks as platform coverage grows.</p>
 
 <div class="diag">
   <div class="diag-bar">Ripple Platform Architecture — Layer Model</div>
@@ -696,10 +725,52 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════════════
-     7. STRATEGIC ALIGNMENT
+     7. THE ROLE OF RIPPLE CORE OPERATIONS
 ════════════════════════════════════════════════════════════ -->
-<h2>7. Strategic Alignment — Platform Vision</h2>
-<p>This org model implements the Platform Vision directly. The March 2026 Ripple Financial Infrastructure document: Ripple Core owns and operates the infrastructure layer; Prime and Treasury build on top. These six teams are Ripple Core — the shared infrastructure every product team composes from, available to external institutions directly.</p>
+<h2>7. The Role of Ripple Core Operations</h2>
+<p>Platform's job is to automate the happy path. Operations holds what doesn't fit it — and is the primary signal for what the platform should automate next. Every recurring exception in Product Ops is a platform gap. Every manual reconciliation run by Recon Ops is a Money Engine roadmap item. Every position spreadsheet Finance Ops maintains is an Accounts Primitive requirement. The exception rate across all four functions is the most honest measure of platform progress.</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead><tr><th style="width:160px;">Function</th><th>Scope</th><th>Platform dependency</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Product Ops</strong></td>
+      <td>Exceptions, escalations, and investigations — everything that doesn't resolve in the automated flow</td>
+      <td>Banking Connections (payment monitoring, corridor health); Money Engine (false-FAILED state, automated reversal)</td>
+    </tr>
+    <tr>
+      <td><strong>Risk Ops</strong></td>
+      <td>Risk review and ongoing compliance monitoring across all products</td>
+      <td>Trusted Identity (real-time AML/sanctions); FinCrimes platform (Unit21, Helios)</td>
+    </tr>
+    <tr>
+      <td><strong>Finance Ops</strong><small>with Treasury</small></td>
+      <td>Asset positions, cash management, and financial reporting</td>
+      <td>Accounts Primitive (position visibility); Money Engine (authoritative settlement state)</td>
+    </tr>
+    <tr>
+      <td><strong>Recon Ops</strong></td>
+      <td>End-of-day reconciliation, safeguarding checks, and break investigation</td>
+      <td>Money Engine (shared ledger as single source of truth); Unified Settlements (automated settlement shrinks break surface)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout teal">
+  <div class="callout-accent"></div>
+  <div class="callout-inner">
+    <div class="callout-title">The model working in practice</div>
+    <div class="callout-body">Unified Settlements went live in Q2 2026. Since then, 60.8% of OTC settlements run through the platform and Jira-based manual handling has dropped to 39.2% — still falling. 58.7% of fiat settlement volume is fully automated. That is the ops exception rate declining as platform coverage expands. The 546 reconciliation breaks and EUR 40K + GBP 10K safeguarding mismatches from Q1 2026 are exactly what Money Engine and Recon Ops address together: the platform closes the gap, Recon Ops holds it in the meantime.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     8. STRATEGIC ALIGNMENT
+════════════════════════════════════════════════════════════ -->
+<h2>8. Strategic Alignment — Platform Vision</h2>
+<p>This org model implements the Platform Vision directly. Ripple's bet is to own the infrastructure layer for digital assets — the layer that connects fiat, markets, and blockchain in a way no single competitor does today. You can't sell that externally if you haven't built it internally, and you can't build it coherently when every product team assembles its own version of the same foundations. Ripple Core owns and operates that infrastructure layer; Prime and Treasury build on top. These six platform teams are Ripple Core.</p>
 <p>The Vision names three anchors: <strong>Corporates</strong> (money engine, account abstraction, fiat/crypto rails), <strong>Banks</strong> (asset issuance, RLUSD as the base for bank-issued digital currency), and <strong>Repo</strong> (custody, settlement, capital markets). Each exercises multiple platform teams. The first five teams map to the Vision's six coherent actions, with RAIL absorbed into Money Engine. Exchange Platform extends the model for the Repo anchor: market execution and liquidity primitives that capital markets workflows require.</p>
 
 <div class="tbl-wrap">
@@ -748,7 +819,7 @@
 <div class="callout teal">
   <div class="callout-accent"></div>
   <div class="callout-inner">
-    <div class="callout-title">The sequencing question</div>
+    <div class="callout-title">Sequencing: where to start</div>
     <div class="callout-body">Money Engine and Banking Connections first. They address the highest-risk blockers: safeguarding reconciliation creating regulatory breach risk in strict jurisdictions; Zeus and spreadsheet deposit attribution that breaks silently at volume; false-FAILED payment state. They also unlock the RTP architecture that eliminates prefunding for RPD. Trusted Identity becomes the priority when COBO scoping starts. Blockchain Platform and Tokenization phase in as existing team work reorganizes — not net-new headcount.</div>
   </div>
 </div>
