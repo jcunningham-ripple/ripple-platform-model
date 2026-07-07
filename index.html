@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -583,31 +584,136 @@
      6. THE ROLE OF RIPPLE CORE OPERATIONS
 ════════════════════════════════════════════════════════════ -->
 <h2>6. The Role of Ripple Core Operations</h2>
-<p>Platform's job is to automate the happy path. Operations holds what doesn't fit it — and is the primary signal for what the platform should automate next. Every recurring exception in Product Ops is a platform gap. Every manual reconciliation run by Recon Ops is a Money Engine roadmap item. Every position spreadsheet Finance Ops maintains is an Accounts Primitive requirement. The exception rate across all four functions is the most honest measure of platform progress.</p>
+<p>Platform's job is to automate the happy path. Operations holds what doesn't fit — and is the primary signal for what the platform should automate next. Product-aligned pods own exceptions and escalations within their domain. Horizontal functions handle what crosses product boundaries. Every recurring exception is a platform gap; the declining exception rate is the most direct measure of platform progress.</p>
+
+<!-- Ops Structure Diagram -->
+<svg viewBox="0 0 860 344" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;background:#fff;font-family:Helvetica Neue,Arial,sans-serif;margin:28px 0 24px;">
+
+  <!-- PRODUCT TEAMS LAYER -->
+  <rect x="0" y="0" width="860" height="78" fill="#eef1fb"/>
+  <text x="430" y="12" fill="#3730a3" font-size="8" font-weight="700" text-anchor="middle" letter-spacing=".12em">PRODUCT TEAMS</text>
+
+  <!-- RPD tile -->
+  <rect x="10" y="18" width="158" height="52" rx="6" fill="#011f90"/>
+  <text x="89" y="40" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">RPD</text>
+  <text x="89" y="56" fill="rgba(255,255,255,.55)" font-size="8.5" text-anchor="middle">Payments</text>
+
+  <!-- COBO tile -->
+  <rect x="178" y="18" width="158" height="52" rx="6" fill="#011f90"/>
+  <text x="257" y="40" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">COBO</text>
+  <text x="257" y="56" fill="rgba(255,255,255,.55)" font-size="8.5" text-anchor="middle">Collections</text>
+
+  <!-- OTC tile -->
+  <rect x="346" y="18" width="158" height="52" rx="6" fill="#011f90"/>
+  <text x="425" y="40" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">OTC</text>
+  <text x="425" y="56" fill="rgba(255,255,255,.55)" font-size="8.5" text-anchor="middle">Trading &amp; Prime</text>
+
+  <!-- Stablecoin tile -->
+  <rect x="514" y="18" width="158" height="52" rx="6" fill="#011f90"/>
+  <text x="593" y="40" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">Stablecoin</text>
+  <text x="593" y="56" fill="rgba(255,255,255,.55)" font-size="8.5" text-anchor="middle">RLUSD</text>
+
+  <!-- Custody tile (live product team) -->
+  <rect x="682" y="18" width="158" height="52" rx="6" fill="#011f90"/>
+  <text x="761" y="40" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">Custody</text>
+  <text x="761" y="56" fill="rgba(255,255,255,.55)" font-size="8.5" text-anchor="middle">Digital Assets</text>
+
+  <!-- CONNECTING LINES: Products to Ops Pods -->
+  <!-- Payments: RPD + COBO merge into Payments Ops -->
+  <line x1="89"  y1="70" x2="89"  y2="91" stroke="#5eead4" stroke-width="1.5"/>
+  <line x1="257" y1="70" x2="257" y2="91" stroke="#5eead4" stroke-width="1.5"/>
+  <line x1="89"  y1="91" x2="257" y2="91" stroke="#5eead4" stroke-width="1.5"/>
+  <line x1="173" y1="91" x2="173" y2="118" stroke="#5eead4" stroke-width="1.5"/>
+  <!-- OTC straight down -->
+  <line x1="425" y1="70" x2="425" y2="118" stroke="#5eead4" stroke-width="1.5"/>
+  <!-- Stablecoin straight down -->
+  <line x1="593" y1="70" x2="593" y2="118" stroke="#5eead4" stroke-width="1.5"/>
+  <!-- Custody ops future: dashed -->
+  <line x1="761" y1="70" x2="761" y2="118" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- PRODUCT-ALIGNED OPERATIONS LAYER -->
+  <rect x="0" y="108" width="860" height="86" fill="#f0fafa"/>
+  <line x1="0" y1="108" x2="860" y2="108" stroke="#99f6e4" stroke-width="1"/>
+  <text x="430" y="120" fill="#0e7490" font-size="8" font-weight="700" text-anchor="middle" letter-spacing=".12em">PRODUCT-ALIGNED OPERATIONS</text>
+
+  <!-- Payments Ops pod (spans RPD + COBO) -->
+  <rect x="10" y="126" width="326" height="60" rx="6" fill="#e0f9f7" stroke="#5eead4" stroke-width="1.5"/>
+  <text x="173" y="149" fill="#0e7490" font-size="10.5" font-weight="700" text-anchor="middle">Payments Operations</text>
+  <text x="173" y="164" fill="#64748b" font-size="8.5" text-anchor="middle">RPD &amp; COBO · Exceptions &amp; escalations</text>
+
+  <!-- OTC Ops pod -->
+  <rect x="346" y="126" width="158" height="60" rx="6" fill="#e0f9f7" stroke="#5eead4" stroke-width="1.5"/>
+  <text x="425" y="149" fill="#0e7490" font-size="10.5" font-weight="700" text-anchor="middle">OTC Operations</text>
+  <text x="425" y="164" fill="#64748b" font-size="8.5" text-anchor="middle">Trading desk · Escalations</text>
+
+  <!-- Stablecoin Ops pod -->
+  <rect x="514" y="126" width="158" height="60" rx="6" fill="#e0f9f7" stroke="#5eead4" stroke-width="1.5"/>
+  <text x="593" y="149" fill="#0e7490" font-size="10" font-weight="700" text-anchor="middle">Stablecoin Operations</text>
+  <text x="593" y="164" fill="#64748b" font-size="8.5" text-anchor="middle">RLUSD · Mint/burn · Reserve</text>
+
+  <!-- Custody Ops (future ops team, not yet staffed) -->
+  <rect x="682" y="126" width="158" height="60" rx="6" fill="#f8fafc" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="761" y="149" fill="#94a3b8" font-size="10.5" font-weight="700" text-anchor="middle">Custody Operations</text>
+  <text x="761" y="164" fill="#c4cdd6" font-size="8.5" text-anchor="middle">Future ops team</text>
+
+  <!-- SEPARATOR -->
+  <rect x="0" y="194" width="860" height="18" fill="#f8fafc"/>
+  <line x1="0" y1="194" x2="860" y2="194" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="0" y1="212" x2="860" y2="212" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- HORIZONTAL OPERATIONS FUNCTIONS -->
+  <rect x="0" y="212" width="860" height="120" fill="#fafafa"/>
+  <text x="430" y="224" fill="#374151" font-size="8" font-weight="700" text-anchor="middle" letter-spacing=".12em">HORIZONTAL OPERATIONS FUNCTIONS  ·  span all product teams</text>
+
+  <!-- Financial Operations strip -->
+  <rect x="10" y="232" width="840" height="44" rx="6" fill="#fff" stroke="#5eead4" stroke-width="1.5"/>
+  <rect x="10" y="232" width="6"   height="44" rx="3" fill="#0e7490"/>
+  <text x="32" y="249" fill="#0e7490" font-size="10" font-weight="700">Financial Operations</text>
+  <text x="32" y="265" fill="#64748b" font-size="8.5">Reconciliation · Treasury · Safeguarding checks · Asset positions · Break investigation</text>
+
+  <!-- Risk Operations strip -->
+  <rect x="10" y="284" width="840" height="44" rx="6" fill="#fff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <rect x="10" y="284" width="6"   height="44" rx="3" fill="#7c3aed"/>
+  <text x="32" y="301" fill="#4f46e5" font-size="10" font-weight="700">Risk Operations</text>
+  <text x="32" y="317" fill="#64748b" font-size="8.5">Risk review · Compliance monitoring · Cross-product risk posture</text>
+
+  <!-- Footer note -->
+  <text x="850" y="339" fill="#9ca3af" font-size="7.5" text-anchor="end">All teams report to Ops Leadership</text>
+</svg>
 
 <div class="tbl-wrap">
 <table>
-  <thead><tr><th style="width:160px;">Function</th><th>Scope</th><th>Platform dependency</th></tr></thead>
+  <thead><tr><th style="width:200px;">Team</th><th style="width:90px;">Type</th><th>Scope</th><th>Platform dependency</th></tr></thead>
   <tbody>
     <tr>
-      <td><strong>Product Ops</strong></td>
-      <td>Exceptions, escalations, and investigations — everything that doesn't resolve in the automated flow</td>
+      <td><strong>Payments Operations</strong></td>
+      <td>Product-aligned</td>
+      <td>Exceptions, escalations, and investigations for RPD and COBO</td>
       <td>Banking Connections (payment monitoring, corridor health); Money Engine (false-FAILED state, automated reversal)</td>
     </tr>
     <tr>
-      <td><strong>Risk Ops</strong></td>
+      <td><strong>OTC Operations</strong></td>
+      <td>Product-aligned</td>
+      <td>Exception handling and escalations for the trading desk</td>
+      <td>Exchange Platform (DEX execution, RFQ); Money Engine (settlement state)</td>
+    </tr>
+    <tr>
+      <td><strong>Stablecoin Operations</strong></td>
+      <td>Product-aligned</td>
+      <td>Exception handling for RLUSD mint/burn, reserve, and distribution flows</td>
+      <td>Tokenization Platform (issuance/redemption API); Banking Connections (safeguarding banking)</td>
+    </tr>
+    <tr>
+      <td><strong>Financial Operations</strong></td>
+      <td>Horizontal</td>
+      <td>End-of-day reconciliation, safeguarding checks, break investigation, asset positions, and treasury management</td>
+      <td>Money Engine (shared ledger); Unified Settlements (automated settlement reduces break surface); Accounts Primitive</td>
+    </tr>
+    <tr>
+      <td><strong>Risk Operations</strong></td>
+      <td>Horizontal</td>
       <td>Risk review and ongoing compliance monitoring across all products</td>
       <td>Trusted Identity (real-time AML/sanctions); FinCrimes platform (Unit21, Helios)</td>
-    </tr>
-    <tr>
-      <td><strong>Finance Ops</strong><small>with Treasury</small></td>
-      <td>Asset positions, cash management, and financial reporting</td>
-      <td>Accounts Primitive (position visibility); Money Engine (authoritative settlement state)</td>
-    </tr>
-    <tr>
-      <td><strong>Recon Ops</strong></td>
-      <td>End-of-day reconciliation, safeguarding checks, and break investigation</td>
-      <td>Money Engine (shared ledger as single source of truth); Unified Settlements (automated settlement shrinks break surface)</td>
     </tr>
   </tbody>
 </table>
@@ -617,7 +723,7 @@
   <div class="callout-accent"></div>
   <div class="callout-inner">
     <div class="callout-title">The model working in practice</div>
-    <div class="callout-body">Unified Settlements went live in Q2 2026. Since then, 60.8% of OTC settlements run through the platform and Jira-based manual handling has dropped to 39.2% — still falling. 58.7% of fiat settlement volume is fully automated. That is the ops exception rate declining as platform coverage expands. The 546 reconciliation breaks and EUR 40K + GBP 10K safeguarding mismatches from Q1 2026 are exactly what Money Engine and Recon Ops address together: the platform closes the gap, Recon Ops holds it in the meantime.</div>
+    <div class="callout-body">Unified Settlements went live in Q2 2026. Since then, 60.8% of OTC settlements run through the platform and Jira-based manual handling has dropped to 39.2% — still falling. 58.7% of fiat settlement volume is fully automated. That is the ops exception rate declining as platform coverage expands. The 546 reconciliation breaks and EUR 40K + GBP 10K safeguarding mismatches from Q1 2026 are exactly what Money Engine and Financial Operations address together: the platform closes the gap, Financial Operations holds it in the meantime.</div>
   </div>
 </div>
 
